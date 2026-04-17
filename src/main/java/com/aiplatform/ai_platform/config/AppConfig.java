@@ -1,12 +1,17 @@
 package com.aiplatform.ai_platform.config;
 
-import com.aiplatform.ai_platform.repository.UsageRecordRepository;
-import com.aiplatform.ai_platform.repository.UserRepository;
-import com.aiplatform.ai_platform.service.*;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+
+import com.aiplatform.ai_platform.repository.UsageRecordRepository;
+import com.aiplatform.ai_platform.repository.UserRepository;
+import com.aiplatform.ai_platform.service.AIGenerationService;
+import com.aiplatform.ai_platform.service.MockAIGenerationService;
+import com.aiplatform.ai_platform.service.QuotaProxyService;
+import com.aiplatform.ai_platform.service.RateLimitProxyService;
 
 @Configuration
 public class AppConfig {
@@ -18,7 +23,7 @@ public class AppConfig {
 
     @Bean("quotaProxy")
     public AIGenerationService quotaProxy(
-            AIGenerationService mockAIService,
+            @Qualifier("mockAIService") AIGenerationService mockAIService,
             UserRepository userRepository,
             UsageRecordRepository usageRecordRepository) {
         return new QuotaProxyService(mockAIService, userRepository, usageRecordRepository);
@@ -27,7 +32,7 @@ public class AppConfig {
     @Bean
     @Primary
     public RateLimitProxyService rateLimitProxy(
-            AIGenerationService quotaProxy,
+            @Qualifier("quotaProxy") AIGenerationService quotaProxy,
             UserRepository userRepository) {
         return new RateLimitProxyService(quotaProxy, userRepository);
     }

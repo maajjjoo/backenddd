@@ -6,7 +6,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Service
 public class ScheduledResetService {
@@ -26,12 +25,10 @@ public class ScheduledResetService {
 
     @Scheduled(cron = "0 0 0 1 * *")
     public void resetMonthlyQuotas() {
-        List<User> users = userRepository.findAll();
         LocalDate nextReset = LocalDate.now().plusMonths(1).withDayOfMonth(1);
-        for (User user : users) {
+        for (User user : userRepository.findAll()) {
             user.setTokensUsed(0);
             user.setQuotaResetDate(nextReset);
         }
-        userRepository.saveAll(users);
     }
 }

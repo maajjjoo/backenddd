@@ -1,23 +1,12 @@
 package com.aiplatform.ai_platform.domain;
 
-import jakarta.persistence.*;
 import java.time.LocalDate;
 
-@Entity
-@Table(name = "usage_records")
 public class UsageRecord {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(nullable = false)
     private Long userId;
-
-    @Column(nullable = false)
     private LocalDate date;
-
-    @Column(nullable = false)
     private long tokensUsed = 0;
 
     public UsageRecord() {}
