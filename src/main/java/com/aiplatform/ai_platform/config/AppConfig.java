@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 
 import com.aiplatform.ai_platform.repository.UsageRecordRepository;
 import com.aiplatform.ai_platform.repository.UserRepository;
@@ -30,7 +29,6 @@ public class AppConfig {
     }
 
     @Bean
-    @Primary
     public RateLimitProxyService rateLimitProxy(
             @Qualifier("quotaProxy") AIGenerationService quotaProxy,
             UserRepository userRepository) {
