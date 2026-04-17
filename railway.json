@@ -1,0 +1,4 @@
+{
+  "build": { "builder": "DOCKERFILE" },
+  "deploy": { "startCommand": "java -jar app.jar", "healthcheckPath": "/actuator/health" }
+}
