@@ -21,9 +21,9 @@ public class DataSeeder implements CommandLineRunner {
     public void run(String... args) {
         if (userRepository.count() == 0) {
             LocalDate nextMonth = LocalDate.now().plusMonths(1).withDayOfMonth(1);
-            userRepository.save(new User(null, "user_free",       Plan.FREE,       0, nextMonth));
-            userRepository.save(new User(null, "user_pro",        Plan.PRO,        0, nextMonth));
-            userRepository.save(new User(null, "user_enterprise", Plan.ENTERPRISE, 0, null));
+            userRepository.save(new User(null, "user_free",       Plan.FREE,       0, 0, nextMonth));
+            userRepository.save(new User(null, "user_pro",        Plan.PRO,        0, 0, nextMonth));
+            userRepository.save(new User(null, "user_enterprise", Plan.ENTERPRISE, 0, 0, null));
         }
     }
 }

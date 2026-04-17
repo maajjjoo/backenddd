@@ -29,6 +29,7 @@ public class ScheduledResetService {
         for (User user : userRepository.findAll()) {
             user.setTokensUsed(0);
             user.setQuotaResetDate(nextReset);
+            userRepository.save(user);
         }
     }
 }
